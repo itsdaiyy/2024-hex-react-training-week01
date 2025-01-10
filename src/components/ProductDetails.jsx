@@ -22,18 +22,18 @@ function ProductDetails({ product }) {
         alt={title}
       />
       <div className="card-body">
-        <h3 className="card-title">
+        <h3 className="card-title h5 mb-3">
           {title}
           <span className="badge text-bg-primary ms-2">{category}</span>
         </h3>
-        <ul className="list-unstyled">
+        <ul className="list-unstyled mb-5">
           <li className="mb-3">商品內容：{content}</li>
           <li className="mb-3">商品描述：{description}</li>
           <li className="mb-3">
             <s className="text-secondary">{origin_price}</s> 元 / {price} 元
           </li>
         </ul>
-        <h4>更多圖片</h4>
+        <h4 className="h6 mb-3">更多圖片</h4>
         <ul className="list-unstyled d-flex gap-2">
           {/* 使用圖片 URL 作為唯一鍵值 */}
           {imagesUrl.map((image, index) => (
