@@ -1,6 +1,12 @@
-import "./App.css";
+import { useState } from "react";
 import EmptyMessage from "./components/EmptyMessage";
+import ProductDetails from "./components/ProductDetails";
+import ProductsListItem from "./components/ProductsListItem";
 
+// 引入全域樣式
+import "./App.css";
+
+// 模擬產品資料
 const products = [
   {
     category: "甜甜圈",
@@ -59,9 +65,18 @@ const products = [
 ];
 
 function App() {
+  // 定義狀態以追蹤選中的產品
+  const [singleProduct, setSingleProduct] = useState(null);
+
+  // 處理產品列點擊事件，將選中的產品設為當前顯示的產品
+  function handleClickListItem(product) {
+    setSingleProduct(product);
+  }
+
   return (
     <div className="container mt-5">
       <div className="row">
+        {/* 左側：產品列表 */}
         <div className="col-md-6">
           <h2>產品列表</h2>
           <table className="table align-middle">
@@ -75,23 +90,28 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>
-                  <button type="button" className="btn btn-primary">
-                    Primary
-                  </button>
-                </td>
-              </tr>
+              {products.map((product) => {
+                return (
+                  <ProductsListItem
+                    key={product.id}
+                    product={product}
+                    onClick={handleClickListItem}
+                  />
+                );
+              })}
             </tbody>
           </table>
         </div>
+        {/* 右側：產品詳細資訊 */}
         <div className="col-md-6">
           <h2>單一產品細節</h2>
-          <EmptyMessage />
+          {/* 若有選中產品，顯示其詳細資訊 */}
+          {/* 若未選中任何產品，顯示空訊息 */}
+          {singleProduct ? (
+            <ProductDetails product={singleProduct} />
+          ) : (
+            <EmptyMessage />
+          )}
         </div>
       </div>
     </div>
